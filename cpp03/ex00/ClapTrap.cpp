@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 10:49:51 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/04/21 18:03:50 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/04/21 18:14:24 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void ClapTrap::attack(const std::string &target)
 	if (energy_p > 0 && health_p > 0)
 	{
 		energy_p -= 1;
-		std::cout << name << " attacked " << target << " with  " << attack_damage << " damages" << std::endl;
+		std::cout << name << " attacked " << target << " with " << attack_damage << " points of damages" << std::endl;
 	}
 	else
 		std::cout << "Error: Your energy points or health points are at 0" << std::endl;
