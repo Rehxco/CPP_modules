@@ -2,8 +2,10 @@ NAME = a.out
 
 SOURCES =  main.cpp \
 		   ClapTrap.cpp \
+		   ScavTrap.cpp \
 
 HEADER =  ClapTrap.hpp \
+		  ScavTrap.hpp 
 
 OBJ_DIR = obj
 
