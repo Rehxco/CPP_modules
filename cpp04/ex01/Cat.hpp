@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 11:56:25 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/05/06 11:13:52 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/05/06 12:07:21 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CAT_HPP
 
 # include "Animal.hpp"
-# include "Brain.hpp"
+#include "Brain.hpp"
 
 class Cat : public Animal
 {
@@ -26,8 +26,7 @@ class Cat : public Animal
 	virtual void makeSound() const;
 
   private:
-  Brain *brain;
-
+Brain *brain;
 };
 
 #endif
