@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 18:17:07 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/04/22 12:50:40 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/04/22 17:46:37 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ ScavTrap::ScavTrap()
 	energy_p = 50;
 	name = "Default";
 }
-ScavTrap::ScavTrap(ScavTrap const &other): ClapTrap(name)
+ScavTrap::ScavTrap(ScavTrap const &other): ClapTrap(other)
 {
 	std::cout << "Copy constructor called in ScavTrap" << std::endl;
 	*this = other;
