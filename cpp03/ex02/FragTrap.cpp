@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 17:17:03 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/04/22 17:42:40 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/05/19 12:41:06 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ FragTrap::FragTrap()
 FragTrap::FragTrap(FragTrap const &other) : ClapTrap(other)
 {
 	std::cout << "Copy constructor called in FragTrap" << std::endl;
-	*this = other;
 }
 FragTrap::FragTrap(std::string const &name) : ClapTrap(name)
 {
@@ -41,10 +40,7 @@ FragTrap &FragTrap::operator=(FragTrap const &other)
 	if (this != &other)
 	{
 		std::cout << "Copy assignment operator called in FragTrap" << std::endl;
-		attack_damage = other.attack_damage;
-		health_p = other.health_p;
-		energy_p = other.energy_p;
-		name = other.name;
+		ClapTrap::operator=(other);
 	}
 	return (*this);
 }
@@ -53,10 +49,10 @@ void FragTrap::attack(const std::string &target)
 	if (energy_p > 0 && health_p > 0)
 	{
 		energy_p -= 1;
-		std::cout << name << " attacked " << target << " with " << attack_damage << " points of damages" << std::endl;
+		std::cout << name << " attacked " << target << " with " << attack_damage << " points of damages in FragTrap" << std::endl;
 	}
 	else
-		std::cout << "Error: Your energy points or health points are at 0" << std::endl;
+		std::cout << "Error: Your energy points or health points are at 0 in FragTrap" << std::endl;
 }
 
 void FragTrap::highFivesGuys(void)

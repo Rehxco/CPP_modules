@@ -6,16 +6,15 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 10:49:45 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/04/21 17:21:08 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/05/19 12:34:19 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CLAPTRAP_HPP
 # define CLAPTRAP_HPP
 
-#include <string>
 # include <iostream>
-
+# include <string>
 
 class ClapTrap
 {
@@ -23,7 +22,7 @@ class ClapTrap
 	ClapTrap();
 	ClapTrap(ClapTrap const &other);
 	ClapTrap(std::string const &name);
-	~ClapTrap();
+	virtual ~ClapTrap();
 	ClapTrap &operator=(ClapTrap const &other);
 	void attack(const std::string &target);
 	void takeDamage(unsigned int amount);
