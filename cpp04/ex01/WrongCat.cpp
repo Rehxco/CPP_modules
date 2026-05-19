@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 16:08:08 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/05/05 16:58:58 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/05/19 14:26:07 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ WrongCat::WrongCat()
 WrongCat::WrongCat(WrongCat const &other) : WrongAnimal(other)
 {
 	std::cout << "Copy constructor called in WrongCat" << std::endl;
-	*this = other;
 }
 WrongCat::~WrongCat()
 {
