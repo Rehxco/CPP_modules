@@ -6,17 +6,23 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 10:40:06 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/06/01 19:36:05 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/07/15 18:24:10 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 #include <string>
 
 int	main(void)
 {
+	srand(time(NULL));
 	try
 	{
 		Bureaucrat God("God", 0);
@@ -59,12 +65,45 @@ int	main(void)
 	{
 		std::cerr << e.what() << std::endl;
 	}
-	Bureaucrat Bad("Bobby", 84);
+	std::cout << std::endl;
+	std::cout << "***********************************************************" << std::endl;
+	std::cout << "Test PresidentialPardonForm" << std::endl;
+	std::cout << "***********************************************************" << std::endl;
+	std::cout << std::endl;
+	Bureaucrat Bad("Bobby", 150);
 	std::cout << Bad << std::endl;
-	Form Wedding("\"Wedding with Maria\"", 2, 1);
-	std::cout << Wedding << std::endl;
-	Bad.signForm(Wedding);
+	PresidentialPardonForm ContractPresidential("Obama");
+	std::cout << ContractPresidential << std::endl;
+	Bad.signForm(ContractPresidential);
+	Bad.executeForm(ContractPresidential);
 	Bureaucrat Boss("Charlie", 1);
-	Boss.signForm(Wedding);
-	std::cout << Wedding << std::endl;
+	Boss.signForm(ContractPresidential);
+	Boss.executeForm(ContractPresidential);
+	std::cout << ContractPresidential << std::endl;
+	std::cout << std::endl;
+	std::cout << "***********************************************************" << std::endl;
+	std::cout << "Test RobotomyRequestForm" << std::endl;
+	std::cout << "***********************************************************" << std::endl;
+	std::cout << std::endl;
+	std::cout << Bad << std::endl;
+	RobotomyRequestForm Robot("Bob");
+	std::cout << Robot << std::endl;
+	Bad.signForm(Robot);
+	Bad.executeForm(Robot);
+	Boss.signForm(Robot);
+	Boss.executeForm(Robot);
+	std::cout << Robot << std::endl;
+	std::cout << std::endl;
+	std::cout << "***********************************************************" << std::endl;
+	std::cout << "Test ShrubberyCreationForm" << std::endl;
+	std::cout << "***********************************************************" << std::endl;
+	std::cout << std::endl;
+	std::cout << Bad << std::endl;
+	ShrubberyCreationForm Tree("CentralPark");
+	std::cout << Tree << std::endl;
+	Bad.signForm(Tree);
+	Bad.executeForm(Tree);
+	Boss.signForm(Tree);
+	Boss.executeForm(Tree);
+	std::cout << Tree << std::endl;
 }
