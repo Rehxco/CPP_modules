@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 17:35:14 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/07/14 18:13:58 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/07/15 12:39:22 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,19 @@ ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &other)
 	std::cout << "Copy constructor called to Shrubbery" << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string const & target)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string const & target) : AForm("ShrubberyCreationForm", 145, 137)
 {
 	std::cout << "Constructor with " << target << " called" << std::endl;
+}
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm const &other)
+{
+	if (this != &other)
+	{
+		AForm::operator=(other);
+		std::cout << "Copy assignment operator called to AForm" << std::endl;
+		this->target = other.target;
+	}
+	return (*this);
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
