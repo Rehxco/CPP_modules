@@ -1,9 +1,9 @@
-NAME = Bureaucrat
+NAME = ScalarConverter
 
 SOURCES =   main.cpp \
-			Conversion.cpp \
+			ScalarConverter.cpp \
 
-HEADER =   	Conversion.hpp \
+HEADER =   	ScalarConverter.hpp \
 			
 
 OBJ_DIR = obj

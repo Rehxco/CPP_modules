@@ -6,58 +6,21 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 10:40:06 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/05/19 19:37:32 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/07/24 16:33:10 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
+#include "ScalarConverter.hpp"
 #include <iostream>
 #include <string>
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	try
+	if(ac < 2)
 	{
-		Bureaucrat God("God", 0);
+		std::cout << "Bad number argument" << std::endl;
+		return(1);
 	}
-	catch (std::exception &e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-	try
-	{
-		Bureaucrat Sub_fifre("Man fired", 151);
-	}
-	catch (std::exception &e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-	try
-	{
-		Bureaucrat Employee("Employee", 15);
-	}
-	catch (std::exception &e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-	try
-	{
-		Bureaucrat Promotion("Bob", 84);
-		Promotion.up_rank();
-	}
-	catch (std::exception &e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-	try
-	{
-		Bureaucrat Bad("Bobby", 84);
-		Bad.down_rank();
-	}
-	catch (std::exception &e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-	Bureaucrat Bad("Bobby", 84);
-	std::cout << Bad << std::endl;
+	ScalarConverter::convert(av[1]);
+	return(0);
 }
