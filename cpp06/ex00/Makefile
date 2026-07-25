@@ -1,7 +1,6 @@
 NAME = ScalarConverter
 
-SOURCES =   main.cpp \
-			ScalarConverter.cpp \
+SOURCES =   ScalarConverter.cpp \
 
 HEADER =   	ScalarConverter.hpp \
 			

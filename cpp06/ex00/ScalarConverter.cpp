@@ -6,12 +6,13 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 17:03:03 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/07/24 17:52:38 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/07/25 14:06:14 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 #include <cstdlib>
+#include <iomanip>
 
 ScalarConverter::ScalarConverter()
 {
@@ -104,12 +105,21 @@ void ScalarConverter::convert(const std::string value)
 	stock_number = strtod(value.c_str(), &end);
 	if (*end == '\0' || (*end == 'f' && end[1] == '\0'))
 	{
-		if(stock_number < 0 || stock_number > 255)
+		if (stock_number < 0 || stock_number > 255)
 			std::cout << "char : impossible" << std::endl;
 		else if (stock_number < 32 || stock_number > 126)
-			std::cout << "Non displayable" << std::endl;
+			std::cout << "char : Non displayable" << std::endl;
 		else
-			c = static_cast<char>(c);
+		{
+			c = static_cast<char>(stock_number);
+			std::cout << "char : '" << c << "'" << std::endl;
+		}
+		integer = static_cast<int>(stock_number);
+		floating = static_cast<float>(stock_number);
+		number = static_cast<double>(stock_number);
+		std::cout << "int : " << integer << std::endl;
+		std::cout << "float : " << std::fixed << std::setprecision(1) << floating << "f" << std::endl;
+		std::cout << "double: " << std::fixed << std::setprecision(1) << number << std::endl;
 	}
 	else
 	{
@@ -118,4 +128,15 @@ void ScalarConverter::convert(const std::string value)
 		std::cout << "float : impossible" << std::endl;
 		std::cout << "double: impossible" << std::endl;
 	}
+}
+
+int	main(int ac, char **av)
+{
+	if(ac != 2)
+	{
+		std::cout << "Bad number argument" << std::endl;
+		return(1);
+	}
+	ScalarConverter::convert(av[1]);
+	return(0);
 }
