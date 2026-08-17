@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 17:03:09 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/08/17 19:03:04 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/08/17 19:47:25 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@
 class NotFoundException : public std::exception
 {
   public:
-	virtual const char *what() const throw();
+	virtual const char *what() const throw()
+	{
+		return ("Error: Number not found");
+	}
 };
-const char *NotFoundException::what() const throw()
-{
-	return ("Error: Number not found");
-}
 template <typename T> typename T::iterator easyfind(T &container, int n)
 {
 	typename T::iterator it = std::find(container.begin(), container.end(), n);
