@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 17:03:09 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/08/17 19:57:24 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/08/20 15:20:58 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ class Span
 	void addNumber(int n);
 	int shortestSpan();
 	int longestSpan();
+	template <typename T> void addNumber(T begin, T end)
+	{
+		size_t len = std::distance(begin, end);
+		if (len + vector.size() > limit)
+			throw SpanFullException();
+		vector.insert(vector.end(), begin, end);
+	}
 	class SpanFullException : public std::exception
 	{
 		public:

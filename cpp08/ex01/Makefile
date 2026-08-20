@@ -1,8 +1,9 @@
-NAME = a.out
+NAME = ex01
 
 SOURCES =   main.cpp \
+			Span.cpp \
 
-HEADER =   easyfind.hpp \
+HEADER =   Span.hpp \
 			
 
 OBJ_DIR = obj

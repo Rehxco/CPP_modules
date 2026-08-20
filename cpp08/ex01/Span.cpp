@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/17 19:57:48 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/08/17 20:33:58 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/08/19 15:31:13 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,25 @@
 #include <iostream>
 #include <vector>
 
-Span::Span(Span const &other)
+Span::Span(Span const &other) : limit(other.limit), vector(other.vector)
 {
-	std::cout << "Copy constructor called" << std::endl;
 }
 
 Span::Span() : limit(0)
 {
-	std::cout << "Default constructor called" << std::endl;
 }
 Span::Span(unsigned int limit) : limit(limit)
 {
-	std::cout << "Parametric constructor called" << std::endl;
 }
 
 Span::~Span()
 {
-	std::cout << "Destructor called" << std::endl;
 }
 
 Span &Span::operator=(Span const &other)
 {
 	if (this != &other)
 	{
-		std::cout << "Copy assignment operator called" << std::endl;
 		limit = other.limit;
 		vector = other.vector;
 	}
@@ -52,12 +47,28 @@ void Span::addNumber(int n)
 }
 int Span::shortestSpan(void)
 {
+	int	min_len;
+	int	tmp_len;
+
 	if (vector.size() <= 1)
 		throw SpanTooSmallException();
+	std::vector<int> tmp_vect(vector);
+	std::sort(tmp_vect.begin(), tmp_vect.end());
+	min_len = tmp_vect[1] - tmp_vect[0];
+	tmp_len = 0;
+	for (size_t i = 0; i < (tmp_vect.size() - 1); i++)
+	{
+		tmp_len = tmp_vect[i + 1] - tmp_vect[i];
+		if (tmp_len < min_len)
+			min_len = tmp_len;
+	}
+	return (min_len);
 }
 int Span::longestSpan(void)
 {
 	if (vector.size() <= 1)
 		throw SpanTooSmallException();
-	int tmp = std::min_element(vector.begin(), vector.end()) - std::max_element(vector.begin(), vector.end())
+	int tmp = *std::max_element(vector.begin(), vector.end())
+		- *std::min_element(vector.begin(), vector.end());
+	return (tmp);
 }
