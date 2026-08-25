@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 15:12:43 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/08/22 15:43:00 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/08/25 19:09:33 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ class BitcoinExchange
 
   private:
 	std::map<std::string, float> _database;
+	bool isValidDate(std::string const & date);
 };
 
 #endif
