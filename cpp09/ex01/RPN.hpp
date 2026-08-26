@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
+/*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 15:12:43 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/08/26 10:44:40 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/08/26 11:41:14 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BITCOINEXCHANGE_HPP
-# define BITCOINEXCHANGE_HPP
+#ifndef RPN_HPP
+# define RPN_HPP
 
-# include <fstream>
 # include <iostream>
-# include <map>
+# include <stack>
 # include <string>
 
-class BitcoinExchange
+class RPN
 {
   public:
-	BitcoinExchange();
-	BitcoinExchange(BitcoinExchange const &other);
-	~BitcoinExchange();
-	BitcoinExchange &operator=(BitcoinExchange const &other);
-	void loadDatabase(std::string const &dbFile);
-	void processInput(std::string const &inputFile);
+	RPN();
+	RPN(RPN const &other);
+	~RPN();
+	RPN &operator=(RPN const &other);
+	void calculate(std::string const &expression);
 
   private:
-	std::map<std::string, float> _database;
-	bool isValidDate(std::string const & date);
+	std::stack<int> _stack;
 };
 
 #endif
