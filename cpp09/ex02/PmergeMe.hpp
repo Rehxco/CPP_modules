@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 15:12:43 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/09/03 19:03:36 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/09/05 18:27:13 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/time.h>
 # include <vector>
 #include <utility>
-#include <algorithm>
+
 
 class PmergeMe
 {
@@ -28,9 +28,10 @@ class PmergeMe
 	PmergeMe(PmergeMe const &other);
 	~PmergeMe();
 	PmergeMe &operator=(PmergeMe const &other);
-	void parsArg(int ac, char **av);
+	bool parsArg(int ac, char **av);
 	void vecAlg();
 	void dequeAlg();
+	void displayVect();
 
   private:
 	std::vector<int> _vect;
