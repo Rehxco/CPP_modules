@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 12:39:16 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/08/06 13:09:31 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/09/24 17:48:01 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ int	main(int ac, char **av)
 	{
 		std::cerr << e.what() << '\n';
 	}
-
+	std::cout << "Test with (int)" << std::endl;
+	Array<int> n(5);
+	for (unsigned int i = 0; i < n.size(); i++)
+		n[i] = i * 10;
+	for (unsigned int i = 0; i < n.size(); i++)
+		std::cout << n[i] << std::endl;
+	
 	return (0);
 }
