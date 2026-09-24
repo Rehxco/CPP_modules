@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 17:03:03 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/07/25 14:06:14 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/09/24 18:14:40 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,13 @@
 
 ScalarConverter::ScalarConverter()
 {
-	std::cout << "Default constructor called" << std::endl;
 }
 ScalarConverter::ScalarConverter(ScalarConverter const &other)
 {
-	std::cout << "Copy constructor called" << std::endl;
 	(void)other;
 }
 ScalarConverter::~ScalarConverter()
 {
-	std::cout << "Destructor called" << std::endl;
 }
 ScalarConverter &ScalarConverter::operator=(ScalarConverter const &other)
 {

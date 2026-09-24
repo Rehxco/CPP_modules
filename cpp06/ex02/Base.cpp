@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 17:03:03 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/07/26 14:18:39 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/09/24 18:15:07 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 Base::~Base()
 {
-	std::cout << "Destructor called" << std::endl;
 }
 Base	*generate(void)
 {
