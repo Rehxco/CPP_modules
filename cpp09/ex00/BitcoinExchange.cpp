@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 15:12:45 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/09/30 12:02:07 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/09/30 12:49:17 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &other)
 	return (*this);
 }
 
-void BitcoinExchange::loadDatabase(std::string const &dbFile)
+bool BitcoinExchange::loadDatabase(std::string const &dbFile)
 {
 	size_t	commaPos;
 	float	priceFloat;
@@ -44,18 +44,21 @@ void BitcoinExchange::loadDatabase(std::string const &dbFile)
 	if (!(ifs.is_open()))
 	{
 		std::cerr << "Error: could not open file" << std::endl;
-		return ;
+		return (false);
 	}
 	std::string line;
 	std::getline(ifs, line);
 	while (std::getline(ifs, line))
 	{
 		commaPos = line.find(',');
+		if (commaPos == std::string::npos)
+			continue ;
 		std::string date = line.substr(0, commaPos);
 		std::string priceStr = line.substr(commaPos + 1);
 		priceFloat = std::atof(priceStr.c_str());
 		this->_database[date] = priceFloat;
 	}
+	return (true);
 }
 bool BitcoinExchange::isValidDate(std::string const &date)
 {
@@ -68,6 +71,8 @@ bool BitcoinExchange::isValidDate(std::string const &date)
 	std::string year = date.substr(0, 4);
 	std::string month = date.substr(5, 2);
 	std::string day = date.substr(8, 2);
+	if (date.find_first_not_of("0123456789-") != std::string::npos)
+		return (false);
 	yearInt = atoi(year.c_str());
 	monthInt = atoi(month.c_str());
 	dayInt = atoi(day.c_str());
@@ -134,7 +139,17 @@ void BitcoinExchange::processInput(std::string const &inputFile)
 			std::cerr << "Error: bad input => " << line << std::endl;
 			continue ;
 		}
+		if (line.size() < pipePos + 2)
+		{
+			std::cerr << "Error: bad input => " << line << std::endl;
+			continue ;
+		}
 		std::string valueStr = line.substr(pipePos + 2);
+		if (valueStr.find_first_not_of(" \t0123456789.+") != std::string::npos)
+		{
+			std::cerr << "Error: not a positive number" << std::endl;
+			continue ;
+		}
 		valueFloat = std::atof(valueStr.c_str());
 		if (valueFloat < 0)
 		{

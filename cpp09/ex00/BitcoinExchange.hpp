@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 15:12:43 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/08/26 10:44:40 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/09/30 12:14:25 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class BitcoinExchange
 	BitcoinExchange(BitcoinExchange const &other);
 	~BitcoinExchange();
 	BitcoinExchange &operator=(BitcoinExchange const &other);
-	void loadDatabase(std::string const &dbFile);
+	bool loadDatabase(std::string const &dbFile);
 	void processInput(std::string const &inputFile);
 
   private:
