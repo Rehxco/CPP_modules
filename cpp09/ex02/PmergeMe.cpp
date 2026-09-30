@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 15:12:45 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/09/05 18:28:29 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/09/30 15:00:57 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@
 #include <string>
 #include <sys/time.h>
 
-PmergeMe::PmergeMe(PmergeMe const &other) : _vect(other._vect),
-	_deque(other._deque)
-{
-}
-
 PmergeMe::PmergeMe()
 {
 }
@@ -31,10 +26,16 @@ PmergeMe::~PmergeMe()
 {
 }
 
+PmergeMe::PmergeMe(PmergeMe const &other) : _unsorted(other._unsorted),
+	_vect(other._vect), _deque(other._deque)
+{
+}
+
 PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 {
 	if (this != &other)
 	{
+		_unsorted = other._unsorted;
 		_vect = other._vect;
 		_deque = other._deque;
 	}
@@ -47,6 +48,11 @@ bool PmergeMe::parsArg(int ac, char **av)
 
 	for (int i = 1; i < ac; i++)
 	{
+		if (av[i][0] == '\0')
+		{
+			std::cerr << "Error" << std::endl;
+			return (false);
+		}
 		j = 0;
 		while (av[i][j] != '\0')
 		{
@@ -61,12 +67,11 @@ bool PmergeMe::parsArg(int ac, char **av)
 		if (res > INT_MAX || res < INT_MIN)
 		{
 			std::cerr << "Error" << std::endl;
-			return(false) ;
+			return (false);
 		}
-		_vect.push_back(res);
-		_deque.push_back(res);
+		_unsorted.push_back(res);
 	}
-	return(true);
+	return (true);
 }
 void PmergeMe::vecAlg(void)
 {
@@ -80,6 +85,7 @@ void PmergeMe::vecAlg(void)
 	int		index;
 	int		target;
 
+	_vect = _unsorted;
 	std::vector<std::pair<int, int> > pairs;
 	hasLast = false;
 	if (_vect.size() < 2)
@@ -164,6 +170,7 @@ void PmergeMe::dequeAlg(void)
 	int		index;
 	int		target;
 
+	_deque.assign(_unsorted.begin(), _unsorted.end());
 	std::deque<std::pair<int, int> > pairs;
 	hasLast = false;
 	if (_deque.size() < 2)
@@ -237,11 +244,16 @@ void PmergeMe::dequeAlg(void)
 	}
 }
 
-void PmergeMe::displayVect(void)
+void PmergeMe::displayBefore(void)
+{
+	for (size_t i = 0; i < _unsorted.size(); i++)
+		std::cout << _unsorted[i] << " ";
+	std::cout << std::endl;
+}
+
+void PmergeMe::displayAfter(void)
 {
 	for (size_t i = 0; i < _vect.size(); i++)
-	{
 		std::cout << _vect[i] << " ";
-	}
 	std::cout << std::endl;
 }

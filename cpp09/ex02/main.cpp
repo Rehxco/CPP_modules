@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:04:34 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/09/05 18:28:07 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/09/30 13:08:52 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,25 @@ int	main(int ac, char **av)
 		return (std::cerr << "Error" << std::endl, 1);
 	if (test.parsArg(ac, av) == false)
 		return (1);
+		
 	std::cout << "Before: ";
-	test.displayVect();
+	test.displayBefore();
+	
 	gettimeofday(&start, NULL);
 	test.vecAlg();
 	gettimeofday(&end, NULL);
 	time_vect = ((end.tv_sec - start.tv_sec) * 1000000.0) + (end.tv_usec
 			- start.tv_usec);
+			
 	gettimeofday(&start, NULL);
 	test.dequeAlg();
 	gettimeofday(&end, NULL);
 	time_deque = ((end.tv_sec - start.tv_sec) * 1000000.0) + (end.tv_usec
 			- start.tv_usec);
+			
 	std::cout << "After: ";
-	test.displayVect();
+	test.displayAfter();
+	
 	std::cout << "Time to process a range of " << ac
 		- 1 << " elements with std::vector : " << std::fixed << std::setprecision(5) << time_vect << " us" << std::endl;
 	std::cout << "Time to process a range of " << ac

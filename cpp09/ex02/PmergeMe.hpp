@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 15:12:43 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/09/05 18:27:13 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/09/30 13:08:20 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ class PmergeMe
 	bool parsArg(int ac, char **av);
 	void vecAlg();
 	void dequeAlg();
-	void displayVect();
+	void displayBefore();
+	void displayAfter();
 
   private:
+	std::vector<int> _unsorted;
 	std::vector<int> _vect;
 	std::deque<int> _deque;
 };
