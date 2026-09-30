@@ -6,7 +6,7 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 15:12:45 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/08/25 20:59:15 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/09/30 12:02:07 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,8 @@ void BitcoinExchange::processInput(std::string const &inputFile)
 		std::string date = line.substr(0, pipePos - 1);
 		if (isValidDate(date) == false)
 		{
-			{
-				std::cerr << "Error: bad input => " << line << std::endl;
-				continue ;
-			}
+			std::cerr << "Error: bad input => " << line << std::endl;
+			continue ;
 		}
 		std::string valueStr = line.substr(pipePos + 2);
 		valueFloat = std::atof(valueStr.c_str());
