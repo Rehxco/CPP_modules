@@ -6,11 +6,12 @@
 /*   By: sbrochar <sbrochar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 15:12:45 by sbrochar          #+#    #+#             */
-/*   Updated: 2026/09/30 12:49:17 by sbrochar         ###   ########.fr       */
+/*   Updated: 2026/10/07 16:59:20 by sbrochar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
+#include <cctype>
 #include <cstdlib>
 #include <stdlib.h>
 
@@ -112,11 +113,24 @@ bool BitcoinExchange::isValidDate(std::string const &date)
 	}
 	return (true);
 }
+static std::string trim(std::string const &str)
+{
+	size_t	start;
+	size_t	end;
+
+	start = str.find_first_not_of(" \t");
+	if (start == std::string::npos)
+		return ("");
+	end = str.find_last_not_of(" \t");
+	return (str.substr(start, end - start + 1));
+}
 
 void BitcoinExchange::processInput(std::string const &inputFile)
 {
 	size_t	pipePos;
 	float	valueFloat;
+	bool	hasDot;
+	bool	badInput;
 
 	std::ifstream ifs(inputFile.c_str());
 	if (!(ifs.is_open()))
@@ -128,26 +142,47 @@ void BitcoinExchange::processInput(std::string const &inputFile)
 	std::getline(ifs, line);
 	while (std::getline(ifs, line))
 	{
-		if ((pipePos = line.find('|')) == std::string::npos)
+		pipePos = line.find('|');
+		if (pipePos == std::string::npos)
 		{
 			std::cerr << "Error: bad input => " << line << std::endl;
 			continue ;
 		}
-		std::string date = line.substr(0, pipePos - 1);
+		std::string date = trim(line.substr(0, pipePos));
 		if (isValidDate(date) == false)
 		{
 			std::cerr << "Error: bad input => " << line << std::endl;
 			continue ;
 		}
-		if (line.size() < pipePos + 2)
+		std::string valueStr = trim(line.substr(pipePos + 1));
+		if (valueStr.empty())
 		{
 			std::cerr << "Error: bad input => " << line << std::endl;
 			continue ;
 		}
-		std::string valueStr = line.substr(pipePos + 2);
-		if (valueStr.find_first_not_of(" \t0123456789.+") != std::string::npos)
+		hasDot = false;
+		badInput = false;
+		for (size_t i = 0; i < valueStr.length(); i++)
 		{
-			std::cerr << "Error: not a positive number" << std::endl;
+			if (valueStr[i] == '+' || valueStr[i] == '-')
+			{
+				if (i > 0)
+					badInput = true;
+			}
+			else if (valueStr[i] == '.')
+			{
+				if (hasDot)
+					badInput = true;
+				hasDot = true;
+			}
+			else if (!std::isdigit(valueStr[i]))
+			{
+				badInput = true;
+			}
+		}
+		if (badInput)
+		{
+			std::cerr << "Error: bad input => " << line << std::endl;
 			continue ;
 		}
 		valueFloat = std::atof(valueStr.c_str());
@@ -156,15 +191,17 @@ void BitcoinExchange::processInput(std::string const &inputFile)
 			std::cerr << "Error: not a positive number" << std::endl;
 			continue ;
 		}
-		else if (valueFloat > 1000)
+		if (valueFloat > 1000)
 		{
 			std::cerr << "Error: too large a number" << std::endl;
 			continue ;
 		}
 		std::map<std::string, float>::iterator it = _database.lower_bound(date);
 		if ((it != _database.end() && it->first == date))
+		{
 			std::cout << date << " => " << valueFloat << " = " << valueFloat
 				* it->second << std::endl;
+		}
 		else if (it == _database.begin())
 		{
 			std::cerr << "Error: bad input => " << line << std::endl;
