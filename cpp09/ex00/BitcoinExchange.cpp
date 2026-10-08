@@ -14,6 +14,7 @@
 #include <cctype>
 #include <cstdlib>
 #include <stdlib.h>
+#include <iomanip>
 
 BitcoinExchange::BitcoinExchange(BitcoinExchange const &other) : _database(other._database)
 {
@@ -38,8 +39,8 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &other)
 
 bool BitcoinExchange::loadDatabase(std::string const &dbFile)
 {
-	size_t	commaPos;
-	float	priceFloat;
+	size_t commaPos;
+	float priceFloat;
 
 	std::ifstream ifs(dbFile.c_str());
 	if (!(ifs.is_open()))
@@ -53,7 +54,7 @@ bool BitcoinExchange::loadDatabase(std::string const &dbFile)
 	{
 		commaPos = line.find(',');
 		if (commaPos == std::string::npos)
-			continue ;
+			continue;
 		std::string date = line.substr(0, commaPos);
 		std::string priceStr = line.substr(commaPos + 1);
 		priceFloat = std::atof(priceStr.c_str());
@@ -63,9 +64,9 @@ bool BitcoinExchange::loadDatabase(std::string const &dbFile)
 }
 bool BitcoinExchange::isValidDate(std::string const &date)
 {
-	int	yearInt;
-	int	monthInt;
-	int	dayInt;
+	int yearInt;
+	int monthInt;
+	int dayInt;
 
 	if (date.size() != 10 || date[4] != '-' || date[7] != '-')
 		return (false);
@@ -77,8 +78,7 @@ bool BitcoinExchange::isValidDate(std::string const &date)
 	yearInt = atoi(year.c_str());
 	monthInt = atoi(month.c_str());
 	dayInt = atoi(day.c_str());
-	if (yearInt < 0 || (monthInt < 1 || monthInt > 12) || (dayInt < 1
-			|| dayInt > 31))
+	if (yearInt < 0 || (monthInt < 1 || monthInt > 12) || (dayInt < 1 || dayInt > 31))
 		return (false);
 	else if (monthInt == 4 || monthInt == 6 || monthInt == 9 || monthInt == 11)
 	{
@@ -115,8 +115,8 @@ bool BitcoinExchange::isValidDate(std::string const &date)
 }
 static std::string trim(std::string const &str)
 {
-	size_t	start;
-	size_t	end;
+	size_t start;
+	size_t end;
 
 	start = str.find_first_not_of(" \t");
 	if (start == std::string::npos)
@@ -127,16 +127,16 @@ static std::string trim(std::string const &str)
 
 void BitcoinExchange::processInput(std::string const &inputFile)
 {
-	size_t	pipePos;
-	float	valueFloat;
-	bool	hasDot;
-	bool	badInput;
+	size_t pipePos;
+	float valueFloat;
+	bool hasDot;
+	bool badInput;
 
 	std::ifstream ifs(inputFile.c_str());
 	if (!(ifs.is_open()))
 	{
 		std::cerr << "Error: could not open file" << std::endl;
-		return ;
+		return;
 	}
 	std::string line;
 	std::getline(ifs, line);
@@ -146,19 +146,19 @@ void BitcoinExchange::processInput(std::string const &inputFile)
 		if (pipePos == std::string::npos)
 		{
 			std::cerr << "Error: bad input => " << line << std::endl;
-			continue ;
+			continue;
 		}
 		std::string date = trim(line.substr(0, pipePos));
 		if (isValidDate(date) == false)
 		{
 			std::cerr << "Error: bad input => " << line << std::endl;
-			continue ;
+			continue;
 		}
 		std::string valueStr = trim(line.substr(pipePos + 1));
 		if (valueStr.empty())
 		{
 			std::cerr << "Error: bad input => " << line << std::endl;
-			continue ;
+			continue;
 		}
 		hasDot = false;
 		badInput = false;
@@ -183,35 +183,36 @@ void BitcoinExchange::processInput(std::string const &inputFile)
 		if (badInput)
 		{
 			std::cerr << "Error: bad input => " << line << std::endl;
-			continue ;
+			continue;
 		}
 		valueFloat = std::atof(valueStr.c_str());
 		if (valueFloat < 0)
 		{
 			std::cerr << "Error: not a positive number" << std::endl;
-			continue ;
+			continue;
 		}
 		if (valueFloat > 1000)
 		{
 			std::cerr << "Error: too large a number" << std::endl;
-			continue ;
+			continue;
 		}
 		std::map<std::string, float>::iterator it = _database.lower_bound(date);
 		if ((it != _database.end() && it->first == date))
 		{
-			std::cout << date << " => " << valueFloat << " = " << valueFloat
-				* it->second << std::endl;
+			std::cout << date << " => " << valueFloat << " = " << valueFloat * it->second << std::endl;
+			// std::cout << date << " => " << valueFloat << " = " << std::setprecision(2) << std::fixed << valueFloat
+			//  * it->second << std::endl;
 		}
 		else if (it == _database.begin())
 		{
 			std::cerr << "Error: bad input => " << line << std::endl;
-			continue ;
+			continue;
 		}
 		else
 		{
 			it--;
-			std::cout << date << " => " << valueFloat << " = " << valueFloat
-				* it->second << std::endl;
+			std::cout << date << " => " << valueFloat << " = " << valueFloat * it->second << std::endl;
+			// std::cout << date << " => " << valueFloat << " = " << std::setprecision(2) << std::fixed << valueFloat * it->second << std::endl;
 		}
 	}
 }
